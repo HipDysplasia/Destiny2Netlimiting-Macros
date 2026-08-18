@@ -2,10 +2,35 @@
 
 A collection of **AutoHotkey v2** macros for Destiny 2 that automate the keyboard, mouse, and loadout sequences used alongside a separate **NetLimiter** configuration.
 
+## Quick Navigation
+
+- [Macro / NetLimiter Mapping](#macro-netlimiter-mapping)
+- [NetLimiter Setup](#netlimiter-setup)
+  - [NetLimiter used by this setup](#netlimiter-used-by-this-setup)
+  - [What the port names mean](#what-the-port-names-mean-in-this-setup)
+  - [Recommended filter structure](#recommended-filter-structure)
+  - [Suggested rule layout](#suggested-rule-layout)
+  - [How to identify the correct connection](#how-to-identify-the-correct-connection)
+- [Macro Overview](#macro-overview)
+- [F3 — DualityChunk](#f3--dualitychunk)
+- [F2 — DoT](#f2--dot)
+- [F4 — TeamKill](#f4--teamkill)
+- [F1 — Resync](#f1--resync)
+- [All-in-One](#all-in-one)
+- [Installation / Setup Checklist](#installation--setup-checklist)
+- [Troubleshooting](#troubleshooting)
+- [Reference Image](#reference-image)
+- [Important Notes](#important-notes)
+
 > [!WARNING]
 > **These macros use my personal keybinds and resolution.** If your Destiny 2 settings are different, you will need to modify the scripts yourself so the inputs and mouse coordinates match your game.
 >
 > **My resolution:** `2304x1440`
+
+> [!NOTE]
+> **AI / authorship note:** The AHK scripts were written by me. AI was used to make readability/organization improvements to parts of the scripts for easier future editing. The README files and the reference image were generated with AI from my own notes and specifications.
+>
+> The AI was used as an editing and presentation aid; the macro logic and intended setup are based on my own work and notes.
 
 ## My Significant Keybinds
 
