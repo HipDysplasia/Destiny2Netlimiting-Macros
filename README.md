@@ -81,6 +81,14 @@ This setup uses **HarryWatch**, a NetLimiter-based tool/configuration used to co
 
 Install and configure HarryWatch separately from the AHK macros. The AHK scripts do not directly control NetLimiter; they only send the corresponding `F5`–`F8` keybinds used by the external setup.
 
+## Useful Destiny 2 Netlimiting References
+
+These are additional pre-existing Destiny 2 netlimiting resources that may be useful for learning more about the general techniques and setups. They are **reference material only** and are not part of this project.
+
+- [Destiny 2 Netlimiting Reference / Guide](https://docs.google.com/document/d/1CuFbJ4KlbSMqf22lVap2yiSMHxLWRJpiMO1eIIpgtJQ/edit?tab=t.0#heading=h.eiku4bk1didu)
+- [Additional Destiny 2 Netlimiting Guide](https://docs.google.com/document/d/1MbvwJBDC_Pcic5_m6xuyCvDxMnV7vPcEojG97G71mto/edit?tab=t.0)
+- [HarryWatch / NetLimiter Resources](https://nl5p.harry.report/)
+
 ## What the port names mean in this setup
 
 For this project, the NetLimiter controls are referred to as:
