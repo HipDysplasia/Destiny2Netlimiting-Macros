@@ -344,7 +344,7 @@ The only persistent handler is the Mouse 1 detector. It does nothing unless F4 h
 
 Resync is used after creating a desynced state with the DualityChunk macro.
 
-It limits the **30000 (30k)** port for **18 seconds**. Around this point the game should disconnect from the relevant connection state. The macro then removes the limit by pressing F8 again, allowing the game to reconnect and **resync**.
+It limits the **30000 (30k)** port for **19 seconds**. Around this point the game should disconnect from the relevant connection state. The macro then removes the limit by pressing F8 again, allowing the game to reconnect and **resync**.
 
 ## Sequence
 
@@ -355,7 +355,7 @@ I   → Open Character / Loadout screen
  ↓
 F8  → Limit 30000
  ↓
-18 seconds
+19 seconds
  ↓
 F8  → Remove 30000 limit / restore connection
 ```
@@ -363,10 +363,10 @@ F8  → Remove 30000 limit / restore connection
 The important timing value is:
 
 ```text
-18,000 ms = 18 seconds
+19,000 ms = 19 seconds
 ```
 
-The 18-second delay is intentional and is the timing used by this setup to reach the game's disconnect/reconnect point.
+The 19-second delay is intentional and is the timing used by this setup to reach the game's disconnect/reconnect point.
 
 ## Outside the sequence
 
