@@ -1,0 +1,45 @@
+Netlimiter:
+
+
+
+
+Repository:
+
+https://github.com/HarrySpce/HarryWatch
+
+
+Releases:
+
+https://github.com/HarrySpce/HarryWatch/releases
+
+
+Latest Release (as of 18/08/2026 - 20:00 GMT + 2):
+
+https://github.com/HarrySpce/HarryWatch/releases/tag/1.2
+
+
+
+
+======================================
+
+
+
+
+Helpful reference links:
+
+
+
+
+Netlimiter Bible (Old):
+
+https://docs.google.com/document/d/1CuFbJ4KlbSMqf22lVap2yiSMHxLWRJpiMO1eIIpgtJQ/edit?tab=t.0#heading=h.eiku4bk1didu
+
+
+Netlimiter Bible (New):
+
+https://docs.google.com/document/d/1MbvwJBDC_Pcic5_m6xuyCvDxMnV7vPcEojG97G71mto/edit?tab=t.0
+
+
+Harry's Netlimitig Website
+
+https://nl5p.harry.report/
