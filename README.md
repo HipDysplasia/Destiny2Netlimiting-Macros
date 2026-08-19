@@ -45,6 +45,31 @@ The macros assume the following Destiny 2 binds:
 
 The scripts also use `F1`–`F4` as the **AHK macro hotkeys**, while `F5`–`F8` are the **in-game / external NetLimiter control binds**.
 
+The scripts also use `F1`–`F4` as the **AHK macro hotkeys**, while `F5`–`F8` are the **in-game / external NetLimiter control binds**.
+
+## Loadout Layout
+
+Destiny 2 uses 20 loadout slots arranged as 5 rows of 4:
+
+```text
+1  2  3  4
+5  6  7  8
+9 10 11 12
+13 14 15 16
+17 18 19 20
+```
+
+This project specifically uses:
+
+- **Loadout 1:** Final **Duality** loadout for DualityChunk.
+- **Loadouts 2, 3, 4:** The three **Lorentz Driver** loadouts cycled repeatedly by DualityChunk.
+- **Loadout 6:** The starting **TeamKill** loadout using **Slayer's Fang**.
+- **Loadout 5:** The second **TeamKill** loadout using **Duality**.
+
+For TeamKill, loadout **6 → 5 → 6** is the intended cycle. The two TeamKill loadouts should otherwise remain identical outside of the exotic weapon.
+
+
+
 ---
 
 # Macro / NetLimiter Mapping
@@ -166,7 +191,9 @@ DualityChunk is the main **weapon desync** setup.
 
 It first limits the **3074 upload traffic**, then repeatedly swaps through completely different loadouts in order to create the desync state.
 
-The loadouts used in the cycle should be substantially different from one another:
+The DualityChunk loadout layout is fixed as follows: **loadout 1 is the final Duality loadout**, while **loadouts 2, 3, and 4 are the three Lorentz Driver loadouts used in the repeated cycle**.
+
+The cycling loadouts should be substantially different from one another:
 
 - Different subclass
 - Different kinetic weapon
@@ -285,11 +312,11 @@ There is no loop, mouse listener, persistent state, or background process associ
 
 TeamKill limits the **7500** traffic and then swaps the player into a second loadout.
 
-The initial loadout should use the **Slayer's Fang** exotic weapon.
+The starting loadout is **loadout 6** and should use the **Slayer's Fang** exotic weapon.
 
-The second loadout should use the **Duality** exotic weapon.
+The second loadout is **loadout 5** and should use the **Duality** exotic weapon.
 
-Outside of those two exotic weapons, the two loadouts should otherwise be **identical**. This is intended to keep the loadout change as controlled as possible while changing the exotic weapon.
+Outside of those two exotic weapons, loadouts **5 and 6** should otherwise be **identical**. This is intended to keep the loadout change as controlled as possible while changing the exotic weapon.
 
 Once the second loadout is active, the macro waits for the player to aim at a person and **hold Mouse 1 for 1.5 seconds**. Once that condition is met, the macro removes the 7500 limit and swaps the loadout back to the original setup so the sequence can be performed again.
 
@@ -317,7 +344,7 @@ Left Arrow
  ↓
 400 ms
  ↓
-Select initial loadout
+Select loadout 6
  ↓
 I   → Close Character / Loadout screen
  ↓
@@ -343,7 +370,7 @@ I
  ↓
 Left Arrow
  ↓
-Select second loadout
+Select loadout 5
  ↓
 I
  ↓
@@ -354,10 +381,10 @@ Return to the original loadout state
 
 The second loadout uses these coordinates at `2304x1440`:
 
-| Loadout | X | Y |
-|---|---:|---:|
-| Initial | `147` | `725` |
-| Second | `240` | `725` |
+| Loadout | Purpose | X | Y |
+|---|---|---:|---:|
+| 6 | Starting TeamKill loadout | `240` | `725` |
+| 5 | Second TeamKill loadout | `147` | `725` |
 
 After the second sequence completes, the Mouse 1 detector is disabled until F4 is pressed again.
 
