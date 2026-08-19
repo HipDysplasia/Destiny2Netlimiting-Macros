@@ -1,0 +1,125 @@
+DESTINY 2 DESYNC MACRO SUITE - QUICK GUIDE
+============================================
+
+This is a small quick-start guide for the downloaded macro files.
+For the full technical explanation, see README.md.
+
+IMPORTANT
+---------
+These macros were made for my own Destiny 2 setup.
+
+AI / AUTHORSHIP NOTE
+--------------------
+The AHK scripts were written by me. AI was used to help improve readability,
+organization, and comments for easier future editing.
+
+The README files and reference image were also generated with AI from my own
+notes and specifications. The macro logic and intended setup are my own work.
+
+Resolution:
+2304x1440
+
+Important keybinds:
+2 = Energy weapon
+I = Character menu
+Left Arrow = Loadouts in Character menu
+Z = Super ability
+
+If your binds or resolution are different, the scripts will need to be modified.
+
+LOADOUT LAYOUT
+--------------
+Destiny 2 loadouts are arranged in 5 rows of 4:
+
+1  2  3  4
+5  6  7  8
+9 10 11 12
+13 14 15 16
+17 18 19 20
+
+This project uses:
+Loadout 1 = DualityChunk final Duality loadout
+Loadouts 2, 3, 4 = DualityChunk Lorentz Driver cycle
+Loadout 6 = TeamKill starting Slayer's Fang loadout
+Loadout 5 = TeamKill second Duality loadout
+
+TeamKill therefore uses the cycle 6 -> 5 -> 6.
+
+NETLIMITER / HARRYWATCH
+-----------------------
+The macros use an external NetLimiter setup. The AHK scripts do not control
+NetLimiter directly; they simply use F5-F8 as the controls for the required
+network rules.
+
+NetLimiter setup used by this project:
+
+3074DL  -> F5
+3074UL  -> F6
+7500    -> F7
+30000   -> F8
+
+The NetLimiter tool used with this setup is HarryWatch:
+https://github.com/HarrySpce/HarryWatch
+
+Make sure the NetLimiter filters are configured for the correct Destiny 2
+connection and port before using the macros.
+
+MACROS
+------
+
+F3 - DUALITYCHUNK
+-----------------
+Uses the 3074UL control.
+
+This creates the intended weapon desync state by repeatedly cycling through
+very different loadouts. The cycling loadouts should use Lorentz Driver,
+with different weapons, armor, subclass, and mods. The heavy weapon may be
+kept the same if needed for Eager Edge ammo management.
+
+The sequence ends on a Duality loadout, then the 3074UL limit is removed.
+The intended result is a desynced state that allows the desired weapon damage
+behavior while using Duality.
+
+F2 - DOT
+--------
+Uses the 3074DL control.
+
+This is intended for Damage Over Time supers. Recommended examples are:
+- Warlock Chaos Reach
+- Titan Thundercrash on impact
+
+A weakening weapon such as Tractor Cannon is also recommended.
+
+The macro handles the short activation sequence. The 3074DL limit must not
+be left active for more than 30 seconds maximum; remove it manually when
+finished if necessary.
+
+F4 - TEAMKILL
+-------------
+Uses the 7500 control.
+
+This swaps between two very similar loadouts while changing the exotic weapon.
+The starting loadout is loadout 6 and should use Slayer's Fang.
+The second loadout is loadout 5 and should use Duality.
+Everything else should ideally remain identical for consistency.
+
+After aiming at the target and holding Mouse 1 for the required time, the
+macro performs the rest of the sequence and returns to the original loadout.
+
+F1 - RESYNC
+-----------
+Uses the 30000 / 30k control.
+
+This temporarily limits the 30000 port for 30 seconds, then removes the limit
+again. The purpose is to force the game to reconnect/resync after a desync.
+
+BASIC SETUP
+-----------
+1. Set Destiny 2 to the required resolution and keybinds.
+2. Set up HarryWatch / NetLimiter with the four port controls above.
+3. Start the AHK macro you want to use.
+4. Use F1-F4 for the corresponding macro.
+5. Make sure the required loadouts are prepared before running a macro.
+
+The exact macro timings, loadout coordinates, and detailed sequences are
+explained in README.md.
