@@ -196,7 +196,7 @@ The selected profile controls the hard-coded loadout coordinates used by **Duali
 |---|---|
 | `1680x1050` | Supported |
 | `1920x1080` | Supported |
-| `2304x1440` | Supported / original reference |
+| `2304x1440` | Supported |
 | `2560x1440` | Supported |
 
 ### Current loadout coordinates
@@ -280,15 +280,6 @@ F6  → Remove 3074UL limit
 ```
 
 ## Important macro details
-
-The loadout coordinates are hard-coded for `2304x1440`:
-
-| Loadout | X | Y |
-|---|---:|---:|
-| 1 | `147` | `613` |
-| 2 | `240` | `613` |
-| 3 | `360` | `613` |
-| 4 | `480` | `613` |
 
 The mouse is blocked from manual movement while the automated loadout sequence is running so that the cursor cannot be moved away from the intended loadout buttons.
 
@@ -421,13 +412,6 @@ Restore mouse input
 Return to the original loadout state
 ```
 
-The second loadout uses these coordinates at `2304x1440`:
-
-| Loadout | Purpose | X | Y |
-|---|---|---:|---:|
-| 6 | Starting TeamKill loadout | `240` | `725` |
-| 5 | Second TeamKill loadout | `147` | `725` |
-
 After the second sequence completes, the Mouse 1 detector is disabled until F4 is pressed again.
 
 ## Outside the sequence
@@ -498,7 +482,7 @@ The `F5`–`F8` controls remain external NetLimiter controls; the AHK script onl
 # Installation / Setup Checklist
 
 1. Install **AutoHotkey v2**.
-2. Set Destiny 2 to the resolution used by the macros: **2304x1440**, or edit every hard-coded coordinate if using another resolution.
+2. Select the resolution from the dropdown menu to match the resolution of your Destiny 2.
 3. Make sure the significant Destiny 2 keybinds match this README:
    - `2` = Energy weapon
    - `I` = Character menu
@@ -518,7 +502,7 @@ The `F5`–`F8` controls remain external NetLimiter controls; the AHK script onl
 
 ### The loadout clicks miss
 
-The macros use fixed screen coordinates. They are configured for **2304x1440**. A different resolution, UI scale, display layout, or character-screen layout may require the coordinates to be changed.
+The macros use fixed screen coordinates. 
 
 ### F5/F6/F7/F8 do not affect the expected traffic
 
@@ -547,7 +531,6 @@ The DoT setup is intentionally different from the other macros: the user must ma
 # Important Notes
 
 - The macro suite is distributed as **one AllInOne.ahk package**.
-- **2304x1440** is the reference resolution.
 - DualityChunk and TeamKill use resolution-specific hard-coded mouse coordinates.
 - `F1`–`F4` are the macro activation keys.
 - `F5`–`F8` are the controls the macros send for the external network-limiting setup.
