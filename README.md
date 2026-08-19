@@ -1,125 +1,555 @@
-DESTINY 2 DESYNC MACRO SUITE - QUICK GUIDE
-============================================
+# Destiny 2 Desync Macro Suite
 
-This is a small quick-start guide for the downloaded macro files.
-For the full technical explanation, see README.md.
+A collection of **AutoHotkey v2** macros for Destiny 2 that automate the keyboard, mouse, and loadout sequences used alongside a separate **NetLimiter** configuration.
 
-IMPORTANT
----------
-These macros were made for my own Destiny 2 setup.
+## Quick Navigation
 
-AI / AUTHORSHIP NOTE
---------------------
-The AHK scripts were written by me. AI was used to help improve readability,
-organization, and comments for easier future editing.
+- [Macro / NetLimiter Mapping](#macro-netlimiter-mapping)
+- [NetLimiter Setup](#netlimiter-setup)
+  - [NetLimiter used by this setup](#netlimiter-used-by-this-setup)
+  - [Useful Destiny 2 Netlimiting References](#useful-destiny-2-netlimiting-references)
+  - [What the port names mean](#what-the-port-names-mean-in-this-setup)
+  - [Recommended filter structure](#recommended-filter-structure)
+- [Supported Resolutions](#supported-resolutions)
+- [Macro Overview](#macro-overview)
+- [F3 — DualityChunk](#f3--dualitychunk)
+- [F2 — DoT](#f2--dot)
+- [F4 — TeamKill](#f4--teamkill)
+- [F1 — Resync](#f1--resync)
+- [All-in-One](#all-in-one)
+- [Installation / Setup Checklist](#installation--setup-checklist)
+- [Troubleshooting](#troubleshooting)
+- [Reference Image](#reference-image)
+- [Important Notes](#important-notes)
 
-The README files and reference image were also generated with AI from my own
-notes and specifications. The macro logic and intended setup are my own work.
+- [Macro / NetLimiter Mapping](#macro-netlimiter-mapping)
+- [NetLimiter Setup](#netlimiter-setup)
+  - [NetLimiter used by this setup](#netlimiter-used-by-this-setup)
+  - [What the port names mean](#what-the-port-names-mean-in-this-setup)
+  - [Recommended filter structure](#recommended-filter-structure)
+  - [Suggested rule layout](#suggested-rule-layout)
+  - [How to identify the correct connection](#how-to-identify-the-correct-connection)
+- [Macro Overview](#macro-overview)
+- [F3 — DualityChunk](#f3--dualitychunk)
+- [F2 — DoT](#f2--dot)
+- [F4 — TeamKill](#f4--teamkill)
+- [F1 — Resync](#f1--resync)
+- [All-in-One](#all-in-one)
+- [Installation / Setup Checklist](#installation--setup-checklist)
+- [Troubleshooting](#troubleshooting)
+- [Reference Image](#reference-image)
+- [Important Notes](#important-notes)
 
-Resolution:
-2304x1440
+> [!WARNING]
+> **These macros use my personal keybinds and resolution.** If your Destiny 2 settings are different, you will need to modify the scripts yourself so the inputs and mouse coordinates match your game.
+>
+> **Supported resolutions:** `1680x1050`, `1920x1080`, `2304x1440`, `2560x1440`
 
-Important keybinds:
-2 = Energy weapon
-I = Character menu
-Left Arrow = Loadouts in Character menu
-Z = Super ability
+> [!NOTE]
+> **AI / authorship note:** The AllInOne AHK script was written by me. AI was used to make readability/organization improvements to parts of the scripts for easier future editing. The README files and the reference image were generated with AI from my own notes and specifications.
+>
+> The AI was used as an editing and presentation aid; the macro logic and intended setup are based on my own work and notes.
 
-If your binds or resolution are different, the scripts will need to be modified.
+## My Significant Keybinds
 
-LOADOUT LAYOUT
---------------
-Destiny 2 loadouts are arranged in 5 rows of 4:
+The macros assume the following Destiny 2 binds:
 
+| Key | Function |
+|---|---|
+| `2` | Energy weapon |
+| `I` | Character menu |
+| `Left Arrow` | Bring up loadouts in the character menu |
+| `Z` | Super ability |
+
+The scripts also use `F1`–`F4` as the **AHK macro hotkeys**, while `F5`–`F8` are the **in-game / external NetLimiter control binds**.
+
+The scripts also use `F1`–`F4` as the **AHK macro hotkeys**, while `F5`–`F8` are the **in-game / external NetLimiter control binds**.
+
+## Loadout Layout
+
+Destiny 2 uses 20 loadout slots arranged as 5 rows of 4:
+
+```text
 1  2  3  4
 5  6  7  8
 9 10 11 12
 13 14 15 16
 17 18 19 20
+```
 
-This project uses:
-Loadout 1 = DualityChunk final Duality loadout
-Loadouts 2, 3, 4 = DualityChunk Lorentz Driver cycle
-Loadout 6 = TeamKill starting Slayer's Fang loadout
-Loadout 5 = TeamKill second Duality loadout
+This project specifically uses:
 
-TeamKill therefore uses the cycle 6 -> 5 -> 6.
+- **Loadout 1:** Final **Duality** loadout for DualityChunk.
+- **Loadouts 2, 3, 4:** The three **Lorentz Driver** loadouts cycled repeatedly by DualityChunk.
+- **Loadout 6:** The starting **TeamKill** loadout using **Slayer's Fang**.
+- **Loadout 5:** The second **TeamKill** loadout using **Duality**.
 
-NETLIMITER / HARRYWATCH
------------------------
-The macros use an external NetLimiter setup. The AHK scripts do not control
-NetLimiter directly; they simply use F5-F8 as the controls for the required
-network rules.
+For TeamKill, loadout **6 → 5 → 6** is the intended cycle. The two TeamKill loadouts should otherwise remain identical outside of the exotic weapon.
 
-NetLimiter setup used by this project:
 
-3074DL  -> F5
-3074UL  -> F6
-7500    -> F7
-30000   -> F8
 
-The NetLimiter tool used with this setup is HarryWatch:
-https://github.com/HarrySpce/HarryWatch
+---
 
-Make sure the NetLimiter filters are configured for the correct Destiny 2
-connection and port before using the macros.
+# Macro / NetLimiter Mapping
 
-MACROS
-------
+The default setup is:
 
-F3 - DUALITYCHUNK
------------------
-Uses the 3074UL control.
+| AHK Hotkey | Macro | NetLimiter control | Port | Direction |
+|---|---|---|---:|---|
+| `F1` | Resync | `F8` | `30000` | — |
+| `F2` | DoT | `F5` | `3074` | **DL** |
+| `F3` | DualityChunk | `F6` | `3074` | **UL** |
+| `F4` | TeamKill | `F7` | `7500` | — |
 
-This creates the intended weapon desync state by repeatedly cycling through
-very different loadouts. The cycling loadouts should use Lorentz Driver,
-with different weapons, armor, subclass, and mods. The heavy weapon may be
-kept the same if needed for Eager Edge ammo management.
+In other words:
 
-The sequence ends on a Duality loadout, then the 3074UL limit is removed.
-The intended result is a desynced state that allows the desired weapon damage
-behavior while using Duality.
+```text
+F1 → Resync      → F8 → 30000 (30k)
+F2 → DoT         → F5 → 3074DL
+F3 → DualityChunk→ F6 → 3074UL
+F4 → TeamKill    → F7 → 7500
+```
 
-F2 - DOT
---------
-Uses the 3074DL control.
+The AllInOne AHK script **does not communicate with NetLimiter directly**. They simply press the corresponding F5/F6/F7/F8 keys at the required points in their sequences. The F-key actions themselves therefore need to be configured separately in NetLimiter / the surrounding setup.
 
-This is intended for Damage Over Time supers. Recommended examples are:
-- Warlock Chaos Reach
-- Titan Thundercrash on impact
+---
 
-A weakening weapon such as Tractor Cannon is also recommended.
+# NetLimiter Setup
 
-The macro handles the short activation sequence. The 3074DL limit must not
-be left active for more than 30 seconds maximum; remove it manually when
-finished if necessary.
+## NetLimiter used by this setup
 
-F4 - TEAMKILL
--------------
-Uses the 7500 control.
+This setup uses **HarryWatch**, a NetLimiter-based tool/configuration used to control the required Destiny 2 network ports.
 
-This swaps between two very similar loadouts while changing the exotic weapon.
-The starting loadout is loadout 6 and should use Slayer's Fang.
-The second loadout is loadout 5 and should use Duality.
-Everything else should ideally remain identical for consistency.
+[**HarryWatch — GitHub**](https://github.com/HarrySpce/HarryWatch)
 
-After aiming at the target and holding Mouse 1 for the required time, the
-macro performs the rest of the sequence and returns to the original loadout.
+Install and configure HarryWatch separately from AllInOne.ahk. The AHK script does not directly control NetLimiter; they only send the corresponding `F5`–`F8` keybinds used by the external setup.
 
-F1 - RESYNC
------------
-Uses the 30000 / 30k control.
+## Useful Destiny 2 Netlimiting References
 
-This temporarily limits the 30000 port for 30 seconds, then removes the limit
-again. The purpose is to force the game to reconnect/resync after a desync.
+These are additional pre-existing Destiny 2 netlimiting resources that may be useful for learning more about the general techniques and setups. They are **reference material only** and are not part of this project.
 
-BASIC SETUP
------------
-1. Set Destiny 2 to the required resolution and keybinds.
-2. Set up HarryWatch / NetLimiter with the four port controls above.
-3. Start the AHK macro you want to use.
-4. Use F1-F4 for the corresponding macro.
-5. Make sure the required loadouts are prepared before running a macro.
+- [Destiny 2 Netlimiting Reference / Guide](https://docs.google.com/document/d/1CuFbJ4KlbSMqf22lVap2yiSMHxLWRJpiMO1eIIpgtJQ/edit?tab=t.0#heading=h.eiku4bk1didu)
+- [Additional Destiny 2 Netlimiting Guide](https://docs.google.com/document/d/1MbvwJBDC_Pcic5_m6xuyCvDxMnV7vPcEojG97G71mto/edit?tab=t.0)
+- [HarryWatch / NetLimiter Resources](https://nl5p.harry.report/)
 
-The exact macro timings, loadout coordinates, and detailed sequences are
-explained in README.md.
+## What the port names mean in this setup
+
+For this project, the NetLimiter controls are referred to as:
+
+- **3074DL** → the download limit/control for port `3074` → bound to `F5`
+- **3074UL** → the upload limit/control for port `3074` → bound to `F6`
+- **7500** → the limit/control for port `7500` → bound to `F7`
+- **30000 / 30k** → the limit/control for port `30000` → bound to `F8`
+
+NetLimiter supports custom filters based on the application, local/remote port, and transport protocol, and its rules can then be applied to the traffic selected by that filter. Multiple filter functions are evaluated together, which allows an application + port + protocol filter to be made specific. citeturn558867search0
+
+## Important: these are the ports used by this setup
+
+This project specifically uses these **single port numbers** in its NetLimiter configuration:
+
+```text
+3074  → F5 / F6
+7500  → F7
+30000 → F8
+```
+
+They should **not** be confused with Bungie's complete Destiny 2 PC networking list. Bungie currently documents broader destination-port ranges, including `3074`, `7500-7509`, and `30000-30009`, among others. citeturn558867search2
+
+So this README documents **the ports used by this particular macro setup**, not every Destiny 2 network port.
+
+## Recommended filter structure
+
+For a NetLimiter filter, the useful combination is generally:
+
+```text
+Application: Destiny 2
+Transport protocol: UDP
+Port: the specific port used by the rule
+```
+
+NetLimiter provides both **Remote port in range** and **Local port in range** filter functions. Use whichever matches the actual connection shown by NetLimiter on the machine being configured; do not blindly assume the port is always local or always remote. citeturn558867search0
+
+For the download/upload controls, create the appropriate **DL Limit** or **UL Limit** rule on the matching filter. NetLimiter's documentation describes DL Limit and UL Limit as separate rule directions. citeturn558867search7
+
+### Suggested rule layout
+
+| Rule / Filter | Port | NetLimiter direction | AHK control key |
+|---|---:|---|---|
+| `3074DL` | `3074` | Download | `F5` |
+| `3074UL` | `3074` | Upload | `F6` |
+| `7500` | `7500` | As required by the setup | `F7` |
+| `30000` / `30k` | `30000` | As required by the setup | `F8` |
+
+### How to identify the correct connection
+
+NetLimiter's Activity view can be used to inspect the connections generated by the game. Check the connection's application, protocol, and local/remote port before creating the final filter. This matters because a rule targeting the wrong side of the connection will not catch the intended traffic. citeturn558867search0
+
+---
+
+# Supported Resolutions
+
+The project is now distributed as **one `AllInOne.ahk` package**. When it starts, a small resolution selector asks which Destiny 2 resolution is being used.
+
+The selected profile controls the hard-coded loadout coordinates used by **DualityChunk** and **TeamKill**. **Resync** and **DoT** do not use resolution-dependent coordinates.
+
+| Resolution | Status |
+|---|---|
+| `1680x1050` | Supported |
+| `1920x1080` | Supported |
+| `2304x1440` | Supported / original reference |
+| `2560x1440` | Supported |
+
+### Current loadout coordinates
+
+| Resolution | D1 | D2 | D3 | D4 | T5 | T6 |
+|---|---|---|---|---|---|---|
+| `1680x1050` | `(107,446)` | `(175,446)` | `(263,446)` | `(350,446)` | `(107,529)` | `(175,529)` |
+| `1920x1080` | `(123,460)` | `(200,460)` | `(300,460)` | `(400,460)` | `(123,544)` | `(200,544)` |
+| `2304x1440` | `(147,613)` | `(240,613)` | `(360,613)` | `(480,613)` | `(147,725)` | `(240,725)` |
+| `2560x1440` | `(164,507)` | `(287,507)` | `(409,507)` | `(532,507)` | `(164,640)` | `(287,640)` |
+
+These coordinates are tied to the Destiny 2 loadout menu layout and may require manual adjustment if Destiny changes its UI or if a future resolution is added.
+
+# Macro Overview
+
+| Macro | Default Hotkey | NetLimiter Key | Port | Purpose |
+|---|---|---|---:|---|
+| **DualityChunk** | `F3` | `F6` | `3074UL` | Creates the Duality weapon desync state through repeated loadout swaps |
+| **DoT** | `F2` | `F5` | `3074DL` | Uses the F5 control after casting a DoT super, then turns it back off |
+| **TeamKill** | `F4` | `F7` | `7500` | Performs the TeamKill loadout swap / weapon sequence and restores the original loadout |
+| **Resync** | `F1` | `F8` | `30000` | Temporarily interrupts the selected traffic, then restores it to force a reconnect/resync |
+
+---
+
+# F3 — DualityChunk
+
+**Default AHK hotkey:** `F3`  
+**NetLimiter control:** `F6`  
+**Port:** `3074UL`
+
+## What it does
+
+DualityChunk is the main **weapon desync** setup.
+
+It first limits the **3074 upload traffic**, then repeatedly swaps through completely different loadouts in order to create the desync state.
+
+The DualityChunk loadout layout is fixed as follows: **loadout 1 is the final Duality loadout**, while **loadouts 2, 3, and 4 are the three Lorentz Driver loadouts used in the repeated cycle**.
+
+The cycling loadouts should be substantially different from one another:
+
+- Different subclass
+- Different kinetic weapon
+- Different armor
+- Different armor mods
+- Other relevant loadout differences
+- The **heavy weapon may remain the same** when needed so that an **Eager Edge sword** does not lose its ammo
+- Each cycling loadout should have **Lorentz Driver** equipped as the exotic weapon
+
+The sequence eventually ends on a loadout containing the **Duality** exotic weapon. This final Duality loadout may reuse items from the earlier loadouts because it is not part of the repeated desync cycle.
+
+After the final loadout is selected, the macro removes the `3074UL` limit by sending `F6` again.
+
+The intended result is that the game is left in a **desynced state**, allowing the damage behavior associated with the desync to be used while the player is holding the Duality exotic weapon.
+
+## Sequence
+
+```text
+F3
+ ↓
+F6  → Limit 3074UL
+ ↓
+I   → Open Character / Loadout screen
+ ↓
+Left Arrow
+ ↓
+Loadout 2
+ ↓
+Loadout 3
+ ↓
+Loadout 4
+ ↓
+Repeat the 2 → 3 → 4 cycle 60 times
+ ↓
+Loadout 1
+ ↓
+I   → Close Character / Loadout screen
+ ↓
+550 ms
+ ↓
+F6  → Remove 3074UL limit
+```
+
+## Important macro details
+
+The loadout coordinates are hard-coded for `2304x1440`:
+
+| Loadout | X | Y |
+|---|---:|---:|
+| 1 | `147` | `613` |
+| 2 | `240` | `613` |
+| 3 | `360` | `613` |
+| 4 | `480` | `613` |
+
+The mouse is blocked from manual movement while the automated loadout sequence is running so that the cursor cannot be moved away from the intended loadout buttons.
+
+## Outside the sequence
+
+There is no permanent mouse hook or background loop left running after F3 finishes. The macro only blocks mouse movement while the automated loadout selection is taking place and restores it afterward.
+
+---
+
+# F2 — DoT
+
+**Default AHK hotkey:** `F2`  
+**NetLimiter control:** `F5`  
+**Port:** `3074DL`
+
+## What it does
+
+DoT is intended for **Damage Over Time super** usage.
+
+After casting the super, the macro uses the `F5` control and then turns the super off again after a short delay.
+
+The only super types intended for this setup are **Damage Over Time supers**. The two recommended examples are:
+
+- **Warlock — Chaos Reach**
+- **Titan — Thundercrash**, specifically on impact
+
+A **weakening weapon such as Tractor Cannon** is also highly recommended for the intended damage setup.
+
+## Important timing note
+
+The DoT macro only handles the short F5-side sequence. After it finishes, the **3074DL limit must be removed manually** if it has not already been handled by the external setup.
+
+> [!WARNING]
+> **Do not leave the 3074DL limit active for longer than 30 seconds maximum.** The user must manually unlimit the port after the DoT sequence if it is still limited.
+
+## AHK sequence
+
+```text
+F2
+ ↓
+Z  → Cast super
+ ↓
+40 ms
+ ↓
+F5  → 3074DL control
+```
+
+The AHK source does not itself remove the 3074DL limit afterward.
+
+## Outside the sequence
+
+There is no loop, mouse listener, persistent state, or background process associated with DoT. Pressing F2 runs the short input sequence once.
+
+---
+
+# F4 — TeamKill
+
+**Default AHK hotkey:** `F4`  
+**NetLimiter control:** `F7`  
+**Port:** `7500`
+
+## What it does
+
+TeamKill limits the **7500** traffic and then swaps the player into a second loadout.
+
+The starting loadout is **loadout 6** and should use the **Slayer's Fang** exotic weapon.
+
+The second loadout is **loadout 5** and should use the **Duality** exotic weapon.
+
+Outside of those two exotic weapons, loadouts **5 and 6** should otherwise be **identical**. This is intended to keep the loadout change as controlled as possible while changing the exotic weapon.
+
+Once the second loadout is active, the macro waits for the player to aim at a person and **hold Mouse 1 for 1.5 seconds**. Once that condition is met, the macro removes the 7500 limit and swaps the loadout back to the original setup so the sequence can be performed again.
+
+> [!NOTE]
+> The script uses **1.5 seconds**, not 1.5 milliseconds, for the Mouse 1 hold.
+
+## Sequence
+
+### Initial F4 sequence
+
+```text
+F4
+ ↓
+F7  → Limit port 7500
+ ↓
+2   → Energy weapon
+ ↓
+I   → Open Character / Loadout screen
+ ↓
+700 ms
+ ↓
+F7
+ ↓
+Left Arrow
+ ↓
+400 ms
+ ↓
+Select loadout 6
+ ↓
+I   → Close Character / Loadout screen
+ ↓
+Arm Mouse 1 detector
+```
+
+### Mouse 1 sequence
+
+Once F4 has armed the detector:
+
+```text
+Hold Mouse 1 for 1.5 seconds
+ ↓
+F7
+ ↓
+Short delay
+ ↓
+Block mouse input
+ ↓
+2
+ ↓
+I
+ ↓
+Left Arrow
+ ↓
+Select loadout 5
+ ↓
+I
+ ↓
+Restore mouse input
+ ↓
+Return to the original loadout state
+```
+
+The second loadout uses these coordinates at `2304x1440`:
+
+| Loadout | Purpose | X | Y |
+|---|---|---:|---:|
+| 6 | Starting TeamKill loadout | `240` | `725` |
+| 5 | Second TeamKill loadout | `147` | `725` |
+
+After the second sequence completes, the Mouse 1 detector is disabled until F4 is pressed again.
+
+## Outside the sequence
+
+The only persistent handler is the Mouse 1 detector. It does nothing unless F4 has armed it. During the automated loadout swap, the script blocks mouse input to prevent manual movement from interfering with the cursor coordinates.
+
+---
+
+# F1 — Resync
+
+**Default AHK hotkey:** `F1`  
+**NetLimiter control:** `F8`  
+**Port:** `30000` / `30k`
+
+## What it does
+
+Resync is used after creating a desynced state with the DualityChunk macro.
+
+It limits the **30000 (30k)** port for **30 seconds** and locks keyboard and mouse input during the wait. Around this point the game should disconnect from the relevant connection state. The macro then removes the limit by pressing F8 again, allowing the game to reconnect and **resync**.
+
+## Sequence
+
+```text
+F1
+ ↓
+I   → Open Character / Loadout screen
+ ↓
+F8  → Limit 30000
+ ↓
+30 seconds
+ ↓
+F8  → Remove 30000 limit / restore connection
+```
+
+The important timing value is:
+
+```text
+30,000 ms = 30 seconds
+```
+
+The 30-second delay is intentional and is the timing used by this setup to reach the game's disconnect/reconnect point.
+
+## Outside the sequence
+
+Resync has no loop, mouse listener, or persistent state. It simply performs the one-time F8-on / F8-off sequence when F1 is pressed.
+
+---
+
+# All-in-One
+
+This project is intentionally distributed as **one AHK script: `AllInOne.ahk`**.
+
+The script contains all four functions under one package:
+
+```text
+F1 → Resync
+F2 → DoT
+F3 → DualityChunk
+F4 → TeamKill
+```
+
+There are no separate macro AHK files to manage. The goal is to keep one maintained implementation so fixes, timing changes, comments, and resolution profiles only need to be updated in one place.
+
+On launch, `AllInOne.ahk` asks for the Destiny 2 resolution and loads the corresponding coordinate profile before enabling the macros.
+
+The `F5`–`F8` controls remain external NetLimiter controls; the AHK script only sends those keys at the appropriate points.
+
+# Installation / Setup Checklist
+
+1. Install **AutoHotkey v2**.
+2. Set Destiny 2 to the resolution used by the macros: **2304x1440**, or edit every hard-coded coordinate if using another resolution.
+3. Make sure the significant Destiny 2 keybinds match this README:
+   - `2` = Energy weapon
+   - `I` = Character menu
+   - `Left Arrow` = Loadouts
+   - `Z` = Super
+4. Set up the four NetLimiter controls:
+   - `F5` → `3074DL`
+   - `F6` → `3074UL`
+   - `F7` → `7500`
+   - `F8` → `30000 / 30k`
+5. Run `AllInOne.ahk` and select your Destiny 2 resolution when prompted.
+6. Verify the NetLimiter rule is targeting the intended Destiny 2 connection before using the macro.
+
+---
+
+# Troubleshooting
+
+### The loadout clicks miss
+
+The macros use fixed screen coordinates. They are configured for **2304x1440**. A different resolution, UI scale, display layout, or character-screen layout may require the coordinates to be changed.
+
+### F5/F6/F7/F8 do not affect the expected traffic
+
+The AHK script only sends the key. Verify that the corresponding NetLimiter rule is enabled and that its filter is matching the correct Destiny 2 connection, protocol, and local/remote port.
+
+### The wrong traffic is being limited
+
+Open NetLimiter's Activity view and inspect the actual connection before adjusting the filter. NetLimiter supports separate local-port and remote-port filters, so selecting the wrong side of the connection can cause the rule to miss the intended traffic. citeturn558867search0
+
+### Mouse input becomes stuck during a macro
+
+The loadout macros use `BlockInput` while the automated cursor movements are being performed. They also use cleanup logic to restore normal input afterward.
+
+### DoT is left limited
+
+The DoT setup is intentionally different from the other macros: the user must manually remove the **3074DL** limit after the sequence, and it should **never remain limited for longer than 30 seconds maximum**.
+
+---
+
+# Reference Image
+
+`Reference.png` is provided in the accompanying ZIP and contains the port/control icons used as the visual reference for the NetLimiter configuration.
+
+---
+
+# Important Notes
+
+- The macro suite is distributed as **one AllInOne.ahk package**.
+- **2304x1440** is the reference resolution.
+- DualityChunk and TeamKill use resolution-specific hard-coded mouse coordinates.
+- `F1`–`F4` are the macro activation keys.
+- `F5`–`F8` are the controls the macros send for the external network-limiting setup.
+- The AHK files themselves do **not** create or modify NetLimiter rules.
+- Bungie's published Destiny 2 PC networking information contains broader port ranges than the four specific port numbers used by this project. The project-specific mappings above are therefore a description of this setup, not a complete list of Destiny 2 networking requirements. citeturn558867search2
