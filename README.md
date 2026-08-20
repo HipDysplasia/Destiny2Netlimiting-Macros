@@ -11,6 +11,7 @@ A collection of **AutoHotkey v2** macros for Destiny 2 that automate the keyboar
   - [What the port names mean](#what-the-port-names-mean-in-this-setup)
   - [Recommended filter structure](#recommended-filter-structure)
 - [Supported Resolutions](#supported-resolutions)
+- [Key Binding Storage](#key-binding-storage)
 - [Macro Overview](#macro-overview)
 - [F3 — DualityChunk](#f3--dualitychunk)
 - [F2 — DoT](#f2--dot)
@@ -22,23 +23,9 @@ A collection of **AutoHotkey v2** macros for Destiny 2 that automate the keyboar
 - [Reference Images](#reference-images)
 - [Important Notes](#important-notes)
 
-- [Macro / NetLimiter Mapping](#macro-netlimiter-mapping)
-- [NetLimiter Setup](#netlimiter-setup)
-  - [NetLimiter used by this setup](#netlimiter-used-by-this-setup)
-  - [What the port names mean](#what-the-port-names-mean-in-this-setup)
-  - [Recommended filter structure](#recommended-filter-structure)
   - [Suggested rule layout](#suggested-rule-layout)
   - [How to identify the correct connection](#how-to-identify-the-correct-connection)
-- [Macro Overview](#macro-overview)
-- [F3 — DualityChunk](#f3--dualitychunk)
-- [F2 — DoT](#f2--dot)
-- [F4 — TeamKill](#f4--teamkill)
-- [F1 — Resync](#f1--resync)
-- [All-in-One](#all-in-one)
-- [Installation / Setup Checklist](#installation--setup-checklist)
-- [Troubleshooting](#troubleshooting)
 - [Reference Image](#reference-image)
-- [Important Notes](#important-notes)
 
 > [!WARNING]
 > **These macros use my personal keybinds and resolution.** If your Destiny 2 settings are different, you will need to modify the scripts yourself so the inputs and mouse coordinates match your game.
@@ -52,23 +39,30 @@ A collection of **AutoHotkey v2** macros for Destiny 2 that automate the keyboar
 
 ## Keybind Compatibility
 
-The macro uses the following Destiny 2 inputs:
+The script automatically reads the following Destiny 2 binds from `cvars.xml` **immediately before every F1–F4 macro activation**:
 
-| Input | Function |
+| CVAR | Used for |
 |---|---|
-| `2` | Second weapon slot |
-| `I` | Character menu |
-| `Left Arrow` | Bring up loadouts in the character menu |
-| `Z` | Super ability |
-| `Mouse 1` | Fire |
+| `equipment_ability` | Super |
+| `ui_open_start_menu_alternative` | Character Menu |
+| `special_weapon` | Second weapon slot |
+| `fire` | Fire / shooting input |
 
-The script attempts to read the **Super**, **Character Menu**, **Second Weapon Slot**, and **Fire** binds from Destiny 2's `cvars.xml` when available. These values are treated as compatibility information rather than something users should change while the macro is running.
+There is **no background keybind scanner**. Each macro gets a fresh read immediately before it starts, so the latest saved local bindings are used.
 
-The `Left Arrow` loadout navigation is not user-rebindable and therefore remains fixed.
+## Key Binding Storage
+
+### IMPORTANT — Key Binding Storage
+
+> **Set Destiny 2 → Global → Key Binding Storage → Computer.**
+
+This is required for reliable automatic keybind detection. With **Account (Default)** storage, Destiny may restore account-side bindings independently of the local `cvars.xml`, meaning the local file may contain older bindings instead of the user's latest settings.
+
+A reference image showing this setting is included with the project.
 
 ### Weapon-slot requirement
 
-For maximum compatibility, it is strongly recommended to keep the weapon slots bound to the standard:
+For maximum compatibility, keep the weapon slots preferably bound to:
 
 ```text
 1 = Primary weapon
@@ -76,23 +70,19 @@ For maximum compatibility, it is strongly recommended to keep the weapon slots b
 3 = Heavy weapon
 ```
 
-The macro specifically requires a usable **second weapon slot bind** because TeamKill uses it. If weapon-slot binds are missing or unusual, TeamKill may not behave correctly.
+The macro specifically requires a usable **second weapon slot bind** because TeamKill uses it.
 
-`F1`–`F4` remain the **AHK macro hotkeys**, while `F5`–`F8` are the external NetLimiter control keys and are not read from Destiny's in-game keybind settings.
+If a required bind is `unused` or otherwise cannot be read, only the macro(s) that need that bind are disabled. The rest of the suite remains available.
 
-### Resolution detection
+### Fixed input
 
-The script does not ask the user to choose a resolution at startup. For the coordinate-based macros, it reads Destiny 2's saved **fullscreen resolution** from `cvars.xml` immediately before the macro runs and selects the matching coordinate profile.
+```text
+Left Arrow = Loadouts in the Character Menu
+```
 
-Only the fullscreen resolution values are used. The separate windowed-resolution values are intentionally ignored.
+Left Arrow remains fixed because loadout navigation is not user-rebindable in the setup targeted by this project.
 
-Supported profiles:
-
-- `1680x1050`
-- `1920x1080`
-- `2304x1440`
-- `2560x1440`
-
+`F1`–`F4` remain the AHK macro activation keys. `F5`–`F8` remain the external NetLimiter control keys and are not taken from Destiny's in-game keybind settings.
 
 ## Loadout Layout
 
@@ -219,9 +209,27 @@ NetLimiter's Activity view can be used to inspect the connections generated by t
 
 The project is distributed as **one `Macros.ahk` package**.
 
-There is no startup resolution selector. Whenever **DualityChunk** or **TeamKill** is activated, the script reads Destiny 2's current saved **fullscreen resolution** from `cvars.xml` and selects the matching coordinate profile automatically.
+There is no startup resolution selector.
 
-**Resync** and **DoT** do not use resolution-dependent coordinates.
+Before **DualityChunk (F3)** or **TeamKill (F4)** starts, the script reads Destiny 2's current saved fullscreen resolution from `cvars.xml` and selects the matching coordinate profile.
+
+The script specifically reads:
+
+```text
+fullscreen_resolution_width
+fullscreen_resolution_height
+```
+
+The separate:
+
+```text
+windowed_resolution_width
+windowed_resolution_height
+```
+
+values are intentionally ignored.
+
+This resolution check runs **every time F3 or F4 is activated**, so a newly saved fullscreen resolution is picked up on the next coordinate-based macro.
 
 | Resolution | Status |
 |---|---|
@@ -235,11 +243,11 @@ There is no startup resolution selector. Whenever **DualityChunk** or **TeamKill
 | Resolution | D1 | D2 | D3 | D4 | T5 | T6 |
 |---|---|---|---|---|---|---|
 | `1680x1050` | `(107,446)` | `(175,446)` | `(263,446)` | `(350,446)` | `(107,529)` | `(175,529)` |
-| `1920x1080` | `(123,460)` | `(200,460)` | `(300,460)` | `(400,460)` | `(123,544)` | `(200,544)` |
+| `1920x1080` | `(123,380)` | `(215,380)` | `(307,380)` | `(399,380)` | `(123,480)` | `(215,480)` |
 | `2304x1440` | `(147,613)` | `(240,613)` | `(360,613)` | `(480,613)` | `(147,725)` | `(240,725)` |
 | `2560x1440` | `(164,507)` | `(287,507)` | `(409,507)` | `(532,507)` | `(164,640)` | `(287,640)` |
 
-These coordinates are tied to the Destiny 2 loadout menu layout and may require manual adjustment if Destiny changes its UI or if a future resolution is added.
+These coordinates are tied to the Destiny 2 loadout-menu layout and may require manual adjustment if the game UI changes or another resolution is added.
 
 # Macro Overview
 
@@ -289,7 +297,7 @@ F3
  ↓
 F6  → Limit 3074UL
  ↓
-I   → Open Character / Loadout screen
+Detected Character Menu bind → Open Character / Loadout screen
  ↓
 Left Arrow
  ↓
@@ -351,7 +359,7 @@ The DoT macro only handles the short F5-side sequence. After it finishes, the **
 ```text
 F2
  ↓
-Z  → Cast super
+Detected Super bind → Cast super
  ↓
 40 ms
  ↓
@@ -382,7 +390,7 @@ The second loadout is **loadout 5** and should use the **Duality** exotic weapon
 
 Outside of those two exotic weapons, loadouts **5 and 6** should otherwise be **identical**. This is intended to keep the loadout change as controlled as possible while changing the exotic weapon.
 
-Once the second loadout is active, the macro waits for the player to aim at a person and **hold Mouse 1 for 1.5 seconds**. Once that condition is met, the macro removes the 7500 limit and swaps the loadout back to the original setup so the sequence can be performed again.
+Once the second loadout is active, the macro waits for the player to aim at a person and **hold the detected Fire input for 1.5 seconds**. Once that condition is met, the macro removes the 7500 limit and swaps the loadout back to the original setup so the sequence can be performed again.
 
 > [!NOTE]
 > The script uses **1.5 seconds**, not 1.5 milliseconds, for the Mouse 1 hold.
@@ -394,60 +402,64 @@ Once the second loadout is active, the macro waits for the player to aim at a pe
 ```text
 F4
  ↓
+Read current Destiny keybinds
+ ↓
+Read current fullscreen resolution
+ ↓
 F7  → Limit port 7500
  ↓
-2   → Energy weapon
- ↓
-I   → Open Character / Loadout screen
+Detected Character Menu bind
  ↓
 700 ms
- ↓
-F7
  ↓
 Left Arrow
  ↓
 400 ms
  ↓
-Select loadout 6
+Select loadout 5
  ↓
-I   → Close Character / Loadout screen
+Detected Character Menu bind → Close
  ↓
-Arm Mouse 1 detector
+Arm detected Fire-input detector
 ```
 
-### Mouse 1 sequence
+### Fire-input sequence
 
 Once F4 has armed the detector:
 
 ```text
-Hold Mouse 1 for 1.5 seconds
+Detected Fire input becomes held
  ↓
-F7
+Check every 10 ms
  ↓
-Short delay
+Continuous 1.5-second hold
  ↓
-Block mouse input
+F7  → Remove 7500 limit
  ↓
-2
+Block mouse input during automated swap
  ↓
-I
+Detected second-weapon bind
+ ↓
+Detected Character Menu bind
  ↓
 Left Arrow
  ↓
-Select loadout 5
+Select loadout 6
  ↓
-I
+Detected Character Menu bind → Close
  ↓
 Restore mouse input
  ↓
-Return to the original loadout state
+Detector becomes inactive
 ```
 
-After the second sequence completes, the Mouse 1 detector is disabled until F4 is pressed again.
+A short Fire press resets the 1.5-second timer, so a later valid hold can still trigger TeamKill.
+
+, the Mouse 1 detector is disabled until F4 is pressed again.
 
 ## Outside the sequence
 
-The only persistent handler is the Mouse 1 detector. It does nothing unless F4 has armed it. During the automated loadout swap, the script blocks mouse input to prevent manual movement from interfering with the cursor coordinates.
+The TeamKill detector is a temporary polling timer that is active only after F4 arms it. It does nothing unless F4 has armed it. During the automated loadout swap, the script blocks mouse input to prevent manual movement from interfering with the cursor coordinates.
 
 ---
 
@@ -504,53 +516,105 @@ F3 → DualityChunk
 F4 → TeamKill
 ```
 
-There are no separate macro AHK files to manage. The goal is to keep one maintained implementation so fixes, timing changes, comments, compatibility handling, and resolution profiles only need to be updated in one place.
+There are no separate macro AHK files to manage.
 
-On F3/F4 activation, the script automatically reads Destiny 2's saved fullscreen resolution and loads the corresponding coordinate profile. The required in-game binds are also handled through the script's keybind-detection compatibility layer where Destiny exposes them through `cvars.xml`.
+Before **every F1–F4 activation**, the script re-reads the relevant Destiny 2 keybinds from `cvars.xml`.
+
+Before **F3/F4**, it also re-reads the current fullscreen resolution and loads the matching coordinate profile.
+
+TeamKill uses the freshly detected Fire bind as its trigger and polls that input every 10 ms while the detector is armed. A continuous 1.5-second hold is required; a short press resets the timer.
 
 The `F5`–`F8` controls remain external NetLimiter controls; the AHK script only sends those keys at the appropriate points.
 
 # Installation / Setup Checklist
 
 1. Install **AutoHotkey v2**.
-2. Make sure the required weapon slots are bound, preferably as `1 / 2 / 3`:
+2. In Destiny 2, set:
+   **Global → Key Binding Storage → Computer**
+3. Preferably keep weapon slots bound to:
    - `1` = Primary
    - `2` = Special / second slot
    - `3` = Heavy
-3. Keep `I` as Character Menu and `Left Arrow` for loadout navigation.
-4. Set up the four NetLimiter controls:
+4. Keep `Left Arrow` available for loadout navigation.
+5. Prepare the required loadouts:
+   - Loadout 1 = Duality final loadout
+   - Loadouts 2–4 = Lorentz Driver cycle
+   - Loadout 6 = TeamKill starting / return Slayer's Fang loadout
+   - Loadout 5 = TeamKill Duality loadout
+6. Set up the four NetLimiter controls:
    - `F5` → `3074DL`
    - `F6` → `3074UL`
    - `F7` → `7500`
    - `F8` → `30000 / 30k`
-5. Run `Macros.ahk`. The coordinate-based macros detect the current fullscreen resolution automatically.
-6. Verify the NetLimiter rule is targeting the intended Destiny 2 connection before using the macro.
+7. Start `Macros.ahk`.
+8. Use F1–F4 for the required macro.
 
----
+The script re-reads keybinds before every macro activation and re-reads the
+fullscreen resolution before F3/F4.
 
 # Troubleshooting
 
 ### The loadout clicks miss
 
-The macros use fixed coordinates for each supported resolution. The script selects the profile from Destiny 2's fullscreen resolution automatically. 
+F3/F4 read the fullscreen resolution from `cvars.xml` every time they start.
+Make sure the game is using one of the supported resolutions and that the
+coordinate profile is correct for the current Destiny UI.
+
+### The detected keybinds are wrong
+
+Check:
+
+```text
+Destiny 2 → Global → Key Binding Storage → Computer
+```
+
+The script reads the current saved bindings immediately before every macro.
+Account storage can cause the local `cvars.xml` to contain older values.
+
+### A required bind is unbound
+
+Destiny represents an unbound control as `unused`. The script treats that as
+unavailable and disables only the macro(s) that require the missing input.
+
+### TeamKill does not trigger on the configured Fire bind
+
+The current TeamKill detector does not rely on a fixed Mouse 1 hotkey.
+
+When F4 is pressed, the script reads the current `fire` CVAR and then polls
+that detected input every 10 ms.
+
+The Fire input must remain continuously held for **1.5 seconds**. A shorter
+press resets the hold timer, so a later valid hold can still trigger TeamKill.
 
 ### F5/F6/F7/F8 do not affect the expected traffic
 
-The AHK script only sends the key. Verify that the corresponding NetLimiter rule is enabled and that its filter is matching the correct Destiny 2 connection, protocol, and local/remote port.
+The AHK script only sends the key. Verify that the corresponding NetLimiter rule
+is enabled and that its filter matches the correct Destiny 2 connection,
+protocol, and local/remote port.
 
 ### The wrong traffic is being limited
 
-Open NetLimiter's Activity view and inspect the actual connection before adjusting the filter. NetLimiter supports separate local-port and remote-port filters, so selecting the wrong side of the connection can cause the rule to miss the intended traffic. citeturn558867search0
+Open NetLimiter's Activity view and inspect the actual connection before adjusting
+the filter. NetLimiter supports separate local-port and remote-port filters, so
+selecting the wrong side of the connection can cause the rule to miss the intended
+traffic. citeturn558867search0
 
 ### Mouse input becomes stuck during a macro
 
-The loadout macros use `BlockInput` while the automated cursor movements are being performed. They also use cleanup logic to restore normal input afterward.
+The loadout macros use `BlockInput` while the automated cursor movements or loadout
+swap are being performed. Cleanup logic restores normal input afterward.
 
 ### DoT is left limited
 
-The DoT setup is intentionally different from the other macros: the user must manually remove the **3074DL** limit after the sequence, and it should **never remain limited for longer than 30 seconds maximum**.
+The DoT setup is intentionally different: the user must manually remove the
+**3074DL** limit after the sequence, and it should **never remain limited for
+longer than 30 seconds maximum**.
 
----
+### Resync does not happen at exactly the same moment
+
+The 30-second timer is a practical default for this setup, not a guaranteed
+universal Destiny 2 disconnect threshold. Network/game state can affect the
+actual disconnect timing.
 
 # Reference Images
 
@@ -560,11 +624,20 @@ The DoT setup is intentionally different from the other macros: the user must ma
 
 # Important Notes
 
-- The macro suite is distributed as **one Macros.ahk package**.
-- DualityChunk and TeamKill use resolution-specific hard-coded mouse coordinates selected automatically from Destiny 2's fullscreen resolution.
+- The macro suite is distributed as **one `Macros.ahk` package**.
+- DualityChunk and TeamKill use resolution-specific hard-coded mouse coordinates.
+- Fullscreen resolution is detected from `cvars.xml` immediately before F3/F4.
+- The four relevant Destiny keybinds are re-read from `cvars.xml` immediately before every F1–F4 activation.
+- **Key Binding Storage must be set to `Computer`** for local `cvars.xml` keybind detection to reliably reflect the user's current bindings.
+- Detected keybinds:
+  - `equipment_ability` → Super
+  - `ui_open_start_menu_alternative` → Character Menu
+  - `special_weapon` → second weapon slot
+  - `fire` → Fire/shoot input
+- `Left Arrow` remains fixed for loadout navigation.
+- `unused` is treated as an unbound input; only affected macros are disabled.
+- TeamKill polls the detected Fire input every 10 ms while armed and requires a continuous 1.5-second hold.
 - `F1`–`F4` are the macro activation keys.
 - `F5`–`F8` are the controls the macros send for the external network-limiting setup.
-- The AHK files themselves do **not** create or modify NetLimiter rules.
-- The script attempts to detect supported in-game keybinds from Destiny 2's saved `cvars.xml`; resolution is detected immediately before F3/F4, while keybind detection is a compatibility aid.
-
+- The AHK script itself does **not** create or modify NetLimiter rules.
 - Bungie's published Destiny 2 PC networking information contains broader port ranges than the four specific port numbers used by this project. The project-specific mappings above are therefore a description of this setup, not a complete list of Destiny 2 networking requirements. citeturn558867search2
