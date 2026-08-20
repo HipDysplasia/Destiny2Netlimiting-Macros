@@ -1,0 +1,299 @@
+DESTINY 2 DESYNC MACRO SUITE - QUICK GUIDE
+==============================================
+
+This project is distributed as one main AutoHotkey file:
+
+    Macros.ahk
+
+It contains all four macros in one package.
+
+============================================================
+IMPORTANT - KEY BINDING STORAGE
+============================================================
+
+In Destiny 2 go to:
+
+    Global -> Key Binding Storage -> Computer
+
+Set it to:
+
+    Computer
+
+This is REQUIRED for automatic keybind detection to reliably reflect your
+saved local keybinds.
+
+With Account (Default) storage, Destiny may restore account-side keybinds
+independently of the local cvars.xml file, which can leave the local file
+with older bindings.
+
+A reference image showing this setting is included with the project.
+
+============================================================
+AUTOMATIC KEYBIND DETECTION
+============================================================
+
+Before EVERY F1-F4 activation, the script re-reads these Destiny 2 CVARs:
+
+    equipment_ability
+        -> Super
+
+    ui_open_start_menu_alternative
+        -> Character Menu
+
+    special_weapon
+        -> Second weapon slot
+
+    fire
+        -> Fire / shooting input
+
+There is NO background keybind scanner.
+
+The scan happens immediately before each macro starts.
+
+If a required value is "unused", the macro(s) that need it are disabled.
+
+============================================================
+WEAPON SLOT RECOMMENDATION
+============================================================
+
+For maximum compatibility, keep:
+
+    1 = Primary
+    2 = Special / second slot
+    3 = Heavy
+
+TeamKill specifically requires the second weapon slot.
+
+============================================================
+AUTOMATIC RESOLUTION DETECTION
+============================================================
+
+You do NOT select the resolution manually.
+
+Before F3 or F4 begins, the script reads:
+
+    fullscreen_resolution_width
+    fullscreen_resolution_height
+
+from:
+
+    %APPDATA%\Bungie\DestinyPC\prefs\cvars.xml
+
+The separate windowed-resolution values are intentionally ignored.
+
+Supported profiles:
+
+    1680x1050
+    1920x1080
+    2304x1440
+    2560x1440
+
+The resolution is checked every time F3/F4 is activated.
+
+============================================================
+FIXED INPUT
+============================================================
+
+Left Arrow = Loadouts in the Character Menu
+
+Left Arrow is fixed because the loadout navigation control is not user-
+rebindable in the setup targeted by this project.
+
+F1-F4 are AHK macro hotkeys.
+F5-F8 are external NetLimiter controls.
+
+============================================================
+LOADOUT LAYOUT
+============================================================
+
+Destiny 2 loadouts are arranged in 5 rows of 4:
+
+    1   2   3   4
+    5   6   7   8
+    9  10  11  12
+   13  14  15  16
+   17  18  19  20
+
+This project uses:
+
+    Loadout 1       = DualityChunk final Duality loadout
+    Loadouts 2-4   = DualityChunk Lorentz Driver cycle
+    Loadout 6       = TeamKill starting / return Slayer's Fang loadout
+    Loadout 5       = TeamKill second Duality loadout
+
+TeamKill therefore uses:
+
+    6 -> 5 -> 6
+
+============================================================
+NETLIMITER / HARRYWATCH
+============================================================
+
+The AHK script uses an external NetLimiter setup.
+It does NOT create or modify NetLimiter rules.
+
+    3074DL  -> F5
+    3074UL  -> F6
+    7500    -> F7
+    30000   -> F8
+
+HarryWatch:
+https://github.com/HarrySpce/HarryWatch
+
+Useful existing Destiny 2 netlimiting references:
+
+https://docs.google.com/document/d/1CuFbJ4KlbSMqf22lVap2yiSMHxLWRJpiMO1eIIpgtJQ/edit?tab=t.0#heading=h.eiku4bk1didu
+
+https://docs.google.com/document/d/1MbvwJBDC_Pcic5_m6xuyCvDxMnV7vPcEojG97G71mto/edit?tab=t.0
+
+https://nl5p.harry.report/
+
+============================================================
+MACROS
+============================================================
+
+F1 - RESYNC
+-----------
+
+Uses F8 -> 30000 / 30k.
+
+Before starting, the script refreshes the current keybinds.
+
+It then:
+
+    1. Opens Character / Loadouts using the detected Character Menu bind.
+    2. Turns the 30000 limit on.
+    3. Blocks keyboard and mouse input.
+    4. Waits 30 seconds.
+    5. Turns the 30000 limit off while input is still blocked.
+    6. Restores normal input.
+
+F2 - DOT
+--------
+
+Uses F5 -> 3074DL.
+
+Before starting, the script refreshes the current keybinds.
+
+It then:
+
+    1. Casts Super using the detected Super bind.
+    2. Waits 40 ms.
+    3. Sends F5.
+
+The macro does NOT automatically remove the 3074DL limit afterward.
+
+3074DL must NOT remain limited for more than:
+
+    30 seconds MAXIMUM
+
+Recommended Damage Over Time supers:
+
+    Warlock Chaos Reach
+    Titan Thundercrash on impact
+
+A weakening weapon such as Tractor Cannon is recommended.
+
+F3 - DUALITYCHUNK
+-----------------
+
+Uses F6 -> 3074UL.
+
+Before starting, the script:
+
+    1. Refreshes the current Destiny keybinds.
+    2. Refreshes the current fullscreen resolution.
+    3. Selects the matching loadout-coordinate profile.
+
+The macro cycles:
+
+    Loadout 2 -> Loadout 3 -> Loadout 4
+
+and repeats the cycle 60 times.
+
+Loadouts 2, 3, and 4 should use Lorentz Driver and be substantially different
+from each other in subclass, kinetic weapon, armor, mods, and other relevant
+loadout contents.
+
+The heavy weapon may remain the same when needed for Eager Edge ammo management.
+
+The sequence finishes on:
+
+    Loadout 1 -> Duality
+
+F4 - TEAMKILL
+-------------
+
+Uses F7 -> 7500.
+
+Before starting, the script:
+
+    1. Refreshes the current Destiny keybinds.
+    2. Refreshes the current fullscreen resolution.
+    3. Selects the matching loadout-coordinate profile.
+
+The player starts on:
+
+    Loadout 6 -> Slayer's Fang
+
+Press F4:
+
+    1. F7 turns the 7500 limit on.
+    2. The detected Character Menu bind opens the menu.
+    3. Left Arrow moves to Loadouts.
+    4. Loadout 5 -> Duality is selected.
+    5. The detected Character Menu bind closes the menu.
+    6. The detected Fire-input detector is armed.
+
+The Fire detector polls the detected Fire input every 10 ms.
+
+The detected Fire input must remain continuously held for:
+
+    1.5 seconds
+
+A shorter press resets the timer, so a later valid hold still works.
+
+After the 1.5-second hold:
+
+    1. F7 removes the 7500 limit.
+    2. Mouse input is blocked for the automated return.
+    3. The detected second-weapon bind is sent.
+    4. The detected Character Menu bind opens the menu.
+    5. Left Arrow moves to Loadouts.
+    6. Loadout 6 is selected.
+    7. The detected Character Menu bind closes the menu.
+    8. Mouse input is restored.
+    9. The TeamKill detector is disabled until F4 is pressed again.
+
+============================================================
+BASIC SETUP
+============================================================
+
+1. Install AutoHotkey v2.
+2. Set Destiny 2:
+       Global -> Key Binding Storage -> Computer
+3. Prefer weapon slots:
+       1 / 2 / 3
+4. Prepare the required loadouts.
+5. Configure HarryWatch / NetLimiter:
+       F5 -> 3074DL
+       F6 -> 3074UL
+       F7 -> 7500
+       F8 -> 30000
+6. Start Macros.ahk.
+7. Use F1-F4 as required.
+
+The script automatically refreshes keybinds before EVERY macro.
+It automatically refreshes fullscreen resolution before F3/F4.
+
+No resolution popup is used.
+
+============================================================
+AI / AUTHORSHIP NOTE
+============================================================
+
+The Macros AHK script was written by me. AI was used to improve readability,
+organization, and comments for easier future editing.
+
+The README files and reference image were generated with AI from my own notes
+and specifications. The macro logic and intended setup are my own work.
