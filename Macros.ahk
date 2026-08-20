@@ -174,8 +174,8 @@ UpdateResolutionProfile()
 ; DESTINY 2 KEYBIND DETECTION
 ; ============================================================
 ; Reads these values from Destiny 2's cvars.xml:
-; - super                 -> Super
-; - ui_open_start_menu_alternative   -> Character menu
+; - super                             -> Super
+; - ui_open_start_menu_alternative    -> Character menu
 ; - special_weapon                    -> Second weapon slot
 ; - fire                              -> Mouse / fire input
 ;
