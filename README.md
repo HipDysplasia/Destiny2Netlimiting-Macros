@@ -25,7 +25,6 @@ A collection of **AutoHotkey v2** macros for Destiny 2 that automate the keyboar
 
   - [Suggested rule layout](#suggested-rule-layout)
   - [How to identify the correct connection](#how-to-identify-the-correct-connection)
-- [Reference Image](#reference-image)
 
 > [!WARNING]
 > **These macros use my personal keybinds and resolution.** If your Destiny 2 settings are different, you will need to modify the scripts yourself so the inputs and mouse coordinates match your game.
@@ -618,7 +617,7 @@ actual disconnect timing.
 
 # Reference Images
 
-`Loadouts.png` & `Ports.png` are provided in the accompanying ZIP and contain the ports and loadouts as the visual reference for the NetLimiter configuration.
+`Loadouts.png`, `Keybinds.png` & `Ports.png` are provided in the accompanying ZIP and contain the ports and loadouts as the visual reference for the NetLimiter configuration.
 
 ---
 
