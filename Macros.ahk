@@ -310,7 +310,7 @@ UpdateKeybinds()
 SendDestinyBind(bind)
 {
     ; AHK sends single alphanumeric characters directly. Named keys
-    ; use braces so inputs such as "F12", "Space", "Left", or "RButton"
+    ; use braces so inputs such as "2", "Space", "Left", or "RButton"
     ; are interpreted as keys instead of literal text.
     if RegExMatch(bind, "^[A-Za-z0-9]$")
         Send bind
@@ -322,13 +322,13 @@ SendDestinyBind(bind)
 ; KEYBIND REFRESH
 ; ============================================================
 ; Keybinds are intentionally NOT scanned in the background.
-; Each F1/F2/F3/F4 activation refreshes the current binds immediately
+; Each /F2/F3/F4 activation refreshes the current binds immediately
 ; before the macro starts. This keeps the script simple and ensures that
 ; a newly saved bind is picked up on the next macro activation.
 ; ============================================================
 
 ; ============================================================
-; F1 = RESYNC
+;  = RESYNC
 ; ============================================================
 ; 1. Turn the 30K / F8 limit on.
 ; 2. Completely block keyboard and mouse input.
@@ -356,6 +356,7 @@ F1::
         return
     }
 
+    Sleep 40
     SendDestinyBind CharacterMenuBind
     SendEvent "{F8}"
 
