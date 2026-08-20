@@ -19,7 +19,7 @@ A collection of **AutoHotkey v2** macros for Destiny 2 that automate the keyboar
 - [All-in-One](#all-in-one)
 - [Installation / Setup Checklist](#installation--setup-checklist)
 - [Troubleshooting](#troubleshooting)
-- [Reference Image](#reference-image)
+- [Reference Images](#reference-images)
 - [Important Notes](#important-notes)
 
 - [Macro / NetLimiter Mapping](#macro-netlimiter-mapping)
@@ -522,9 +522,9 @@ The DoT setup is intentionally different from the other macros: the user must ma
 
 ---
 
-# Reference Image
+# Reference Images
 
-`Reference.png` is provided in the accompanying ZIP and contains the port/control icons used as the visual reference for the NetLimiter configuration.
+`Loadouts.png` & `Ports.png` are provided in the accompanying ZIP and contain the ports and loadouts as the visual reference for the NetLimiter configuration.
 
 ---
 
